@@ -22,6 +22,31 @@ class App extends React.Component {
       tasks
     };
   }
+    addTodo = (e, todo) => {
+      e.preventDefault();
+      const newTodo = {
+        task: todo,
+        id: Date.now(),
+        completed: false
+      };
+      this.setState({
+        tasks: [...this.state.tasks, newTodo]
+      });
+    };
+
+    toggleTodo = todoId => {
+      this.setState({
+        tasks: this.state.tasks.map(todo => {
+          if (todoId === todo.id) {
+            return{
+              ...todo,
+              completed: !todo.completed
+            };
+          }
+          return todo;
+        })
+      })
+    }
   render() {
     return (
       <div>
