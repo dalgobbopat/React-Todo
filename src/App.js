@@ -1,4 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import TodoList from './components/TodoList';
+import TodoForm from './components/TodoForm';
 
 
 
@@ -45,12 +48,27 @@ class App extends React.Component {
           }
           return todo;
         })
-      })
-    }
+      });
+    };
+
+    clearCompleted = e => {
+      e.preventDefault();
+      this.setState({
+        tasks: this.state.tasks.filter(todo => !todo.completed)
+      });
+    };
   render() {
     return (
-      <div>
+      <div className="App">
+        <div className="header">
         <h2>Welcome to your Todo App!</h2>
+        <TodoForm addTodo={this.addTodo} />
+        </div>
+        <TodoList
+          tasks={this.state.tasks}
+          toggleTodo={this.toggleTodo}
+          clearCompleted={this.clearCompleted}
+          />
       </div>
     );
   }
